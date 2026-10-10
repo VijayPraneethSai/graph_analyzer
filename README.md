@@ -1,8 +1,21 @@
-# CUDA triangle counting
+# graph_analyzer
 
-GPU triangle counting on SNAP graphs (Wiki-Vote, email-Enron, as-Skitter), with CPU baselines
-(serial + OpenMP), exact count verification and a results table. Reuses the degree-ordered
-orientation idea from my Densest Subgraph project.
+GPU triangle counting and triangle-density densest subgraph search, written in CUDA C++ and tested on SNAP graphs.
+
+**Goal.** Count triangles in graphs with tens of millions of edges fast, then use that count to find the subgraph with the
+highest triangle density. Everything is checked against a serial CPU implementation before any timing is reported.
+
+**What is in here**
+- Nine triangle-counting kernels (thread, warp and block per work item, shared-memory hash sets, edge sorting) on a degree-ordered CSR graph.
+- Densest subgraph by batch peeling on the GPU, plus CPU Greedy++, exact max-flow and CoreExact.
+- A CPU emulator that runs the kernels against a brute-force counter, so the logic can be tested without a GPU (`make test`).
+
+**Results on a Tesla T4** (details and raw logs below and in `results/`): the fastest counting kernel takes 49 ms on
+com-LiveJournal (34.7M edges), 219x faster than the serial CPU count and 129x faster than 2-thread OpenMP. GPU batch peeling
+gives the same answer as the CPU version and is 112x (as-Skitter) and 53x (com-LiveJournal) faster, kernel only.
+
+**Not measured yet.** The incremental core decomposition and the seeded CoreExact (stages 6b and 6c) pass the emulator tests
+but have not been run on a GPU. See the Stage 6 section.
 
 ## Method
 Edges are oriented from the lower (degree, id) endpoint to the higher one, so each triangle is
@@ -245,9 +258,9 @@ Measured numbers for this stage are in the table above (from the committed Colab
 
 ## Stage 6: paper algorithms (Greedy++, triangle core decomposition, CoreExact) with GPU core decomposition -- first version measured on a T4, stages 6b and 6c NOT YET MEASURED
 
-**STATUS (2026-10-11).** The first version of this stage (commit `e0a620c`, level-synchronous core decomposition that RECOUNTS all triangles every round) compiled with nvcc and ran on a Tesla T4 on Wiki-Vote, Email-Enron and as-Skitter; its GPU core numbers matched CPU Algorithm 3 element by element on all three, and `--verify-full` on Wiki-Vote gave an identical optimum with and without pruning. On com-LiveJournal that version did not finish within the 600 s limit I had set (`exit 124`). Logs: `results/colab_run_stage6_small_T4_2026-10-11.log`, `results/colab_run_stage6_large_T4_2026-10-11.log`. **Two later changes are written and emulator-tested only, NOT compiled with nvcc and NOT measured: the incremental frontier core decomposition (6c) and the Greedy++-seeded CoreExact (6b), both described below.** There is no `results/results_dsg.csv` yet. (The `.cu` files were syntax-checked with clang host-only against a stub header, which is not a real nvcc compile.)
+**STATUS (2026-10-11).** The first version of this stage (level-synchronous core decomposition that RECOUNTS all triangles every round) compiled with nvcc and ran on a Tesla T4 on Wiki-Vote, Email-Enron and as-Skitter; its GPU core numbers matched CPU Algorithm 3 element by element on all three, and `--verify-full` on Wiki-Vote gave an identical optimum with and without pruning. On com-LiveJournal that version did not finish within the 600 s limit I had set (`exit 124`). Logs: `results/colab_run_stage6_small_T4_2026-10-11.log`, `results/colab_run_stage6_large_T4_2026-10-11.log`. **Two later changes are written and emulator-tested only, NOT compiled with nvcc and NOT measured: the incremental frontier core decomposition (6c) and the Greedy++-seeded CoreExact (6b), both described below.** There is no `results/results_dsg.csv` yet. (The `.cu` files were syntax-checked with clang host-only against a stub header, which is not a real nvcc compile.)
 
-**Measured on the T4 (recount version, `e0a620c`; GPU numbers are the program's best-of-N kernel time including the per-round sync, excluding uploads):**
+**Measured on the T4 (recount version; GPU numbers are the program's best-of-N kernel time including the per-round sync, excluding uploads):**
 
 | graph | rounds | kmax | GPU core decomposition (recount) | serial CPU Alg 3 | pruned graph after greedy lower bound |
 |---|---|---|---|---|---|
