@@ -1,0 +1,10 @@
+Excerpt of Nsight Compute (basic set + smsp__inst_executed.sum) output pasted from the Colab T4 session on 2026-10-10,
+as-Skitter, one launch per kernel, SM clock pinned by ncu at 585 MHz. Values copied as printed.
+
+kernel                  grid x block      elapsed cycles   inst_executed.sum   L1/TEX thr   DRAM thr   regs
+tc_edge_per_thread      43342 x 256        10,090,614        573,094,654        89.67 %      9.98 %    18
+tc_warp_per_edge        1048576 x 256      21,514,992      1,498,761,114        58.54 %      5.21 %    24
+tc_edge_find_src        43342 x 256        10,774,669        647,517,249        86.92 %      8.16 %    18
+tc_group_per_edge<2>    86683 x 256        10,215,688        596,953,389        89.93 %      9.69 %    24
+
+Earlier pass (results/ncu_as-Skitter_v1_v2_2026-10-10_T4.log) also gave v1/v2 active threads per warp 11.07 / 19.92.

@@ -1,0 +1,147 @@
+/content/cuda-triangle-counting
+M	results/results.csv
+Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
+459b250 Save session-2 replicate logs; note gap reproduces, burn-in explanation untested
+6d16299 Add clock-ramp burn-in; correct v5/v7 claims after ncu cycle counts; save ncu summary
+nvcc -O3 -std=c++17 -arch=sm_75 -Xcompiler -fopenmp src/gpu_tc.cu -o bin/gpu_tc
+GPU: Tesla T4, SMs=40, cc=7.5
+loaded n=1696415 m=11095298 max_out_deg=231
+v4 tasks=10332866 (chunk=128), host task build 176.37 ms
+gpu_v1_edge_per_thread,data/as-Skitter.txt,1696415,11095298,28769868,8.957,20.642,29.600
+gpu_v2_warp_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,18.958,20.642,39.601
+gpu_v3_block_smem,data/as-Skitter.txt,1696415,11095298,28769868,23.080,11.179,34.259
+gpu_v4_task_warp,data/as-Skitter.txt,1696415,11095298,28769868,20.873,38.942,236.184
+gpu_v5_g2_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,8.161,20.642,28.804
+gpu_v5_g4_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,8.119,20.642,28.762
+gpu_v5_g8_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,9.621,20.642,30.264
+gpu_v5_g16_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,13.153,20.642,33.795
+gpu_v6_vertex_per_thread,data/as-Skitter.txt,1696415,11095298,28769868,16.352,11.179,27.532
+gpu_v7_edge_search_src,data/as-Skitter.txt,1696415,11095298,28769868,9.155,11.179,20.334
+all kernels verified against CPU count: 28769868
+==WARNING== Note: Running with unmodified GPU clocks. If not controlled otherwise, profiling results may be inconsistent.
+==PROF== Connected to process 3316 (/content/cuda-triangle-counting/bin/gpu_tc)
+GPU: Tesla T4, SMs=40, cc=7.5
+loaded n=1696415 m=11095298 max_out_deg=231
+v4 tasks=10332866 (chunk=128), host task build 278.78 ms
+==PROF== Profiling "tc_edge_per_thread": 0%....50%....100% - 8 passes
+gpu_v1_edge_per_thread,data/as-Skitter.txt,1696415,11095298,28769868,8.362,21.400,29.762
+gpu_v2_warp_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,19.970,21.400,41.370
+gpu_v3_block_smem,data/as-Skitter.txt,1696415,11095298,28769868,24.515,11.486,36.001
+gpu_v4_task_warp,data/as-Skitter.txt,1696415,11095298,28769868,20.845,39.732,339.353
+gpu_v5_g2_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,8.379,21.400,29.779
+gpu_v5_g4_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,8.032,21.400,29.432
+gpu_v5_g8_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,9.779,21.400,31.179
+gpu_v5_g16_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,13.849,21.400,35.249
+gpu_v6_vertex_per_thread,data/as-Skitter.txt,1696415,11095298,28769868,17.830,11.486,29.316
+gpu_v7_edge_search_src,data/as-Skitter.txt,1696415,11095298,28769868,9.537,11.486,21.024
+all kernels verified against CPU count: 28769868
+==PROF== Disconnected from process 3316
+[3316] gpu_tc@127.0.0.1
+  tc_edge_per_thread(const unsigned int *, const unsigned int *, const unsigned int *, unsigned int, unsigned long long *) (43342, 1, 1)x(256, 1, 1), Context 1, Stream 7, Device 0, CC 7.5
+    Warning: Data collection happened without fixed GPU frequencies. Profiling results may be inconsistent.
+    Section: GPU Speed Of Light Throughput
+    ----------------------- ----------- -------------
+    Metric Name             Metric Unit  Metric Value
+    ----------------------- ----------- -------------
+    DRAM Frequency                  Ghz          5.00
+    SM Frequency                    Ghz          1.02
+    Elapsed Cycles                cycle    11,925,634
+    Memory Throughput                 %         37.39
+    DRAM Throughput                   %         14.29
+    Duration                         ms         11.69
+    L1/TEX Cache Throughput           %         74.78
+    L2 Cache Throughput               %         19.38
+    SM Active Cycles              cycle 12,200,577.30
+    Compute (SM) Throughput           %         29.28
+    ----------------------- ----------- -------------
+
+    OPT   This workload exhibits low compute throughput and memory bandwidth utilization relative to the peak           
+          performance of this device. Achieved compute throughput and/or memory bandwidth below 60.0% of peak           
+          typically indicate latency issues. Look at Scheduler Statistics and Warp State Statistics for potential       
+          reasons.                                                                                                      
+
+==WARNING== Note: Running with unmodified GPU clocks. If not controlled otherwise, profiling results may be inconsistent.
+==PROF== Connected to process 3393 (/content/cuda-triangle-counting/bin/gpu_tc)
+GPU: Tesla T4, SMs=40, cc=7.5
+loaded n=1696415 m=11095298 max_out_deg=231
+v4 tasks=10332866 (chunk=128), host task build 249.77 ms
+gpu_v1_edge_per_thread,data/as-Skitter.txt,1696415,11095298,28769868,8.968,21.775,30.743
+gpu_v2_warp_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,19.517,21.775,41.292
+gpu_v3_block_smem,data/as-Skitter.txt,1696415,11095298,28769868,24.231,11.872,36.103
+gpu_v4_task_warp,data/as-Skitter.txt,1696415,11095298,28769868,21.878,40.025,311.678
+gpu_v5_g2_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,12.649,21.775,34.424
+gpu_v5_g4_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,7.748,21.775,29.523
+gpu_v5_g8_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,9.531,21.775,31.306
+gpu_v5_g16_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,13.713,21.775,35.488
+gpu_v6_vertex_per_thread,data/as-Skitter.txt,1696415,11095298,28769868,18.161,11.872,30.033
+==PROF== Profiling "tc_edge_find_src": 0%....50%....100% - 8 passes
+gpu_v7_edge_search_src,data/as-Skitter.txt,1696415,11095298,28769868,8.434,11.872,20.307
+all kernels verified against CPU count: 28769868
+==PROF== Disconnected from process 3393
+[3393] gpu_tc@127.0.0.1
+  tc_edge_find_src(const unsigned int *, const unsigned int *, unsigned int, unsigned int, unsigned long long *) (43342, 1, 1)x(256, 1, 1), Context 1, Stream 7, Device 0, CC 7.5
+    Warning: Data collection happened without fixed GPU frequencies. Profiling results may be inconsistent.
+    Section: GPU Speed Of Light Throughput
+    ----------------------- ----------- ------------
+    Metric Name             Metric Unit Metric Value
+    ----------------------- ----------- ------------
+    DRAM Frequency                  Ghz         5.00
+    SM Frequency                    Ghz         1.59
+    Elapsed Cycles                cycle   12,952,233
+    Memory Throughput                 %        36.61
+    DRAM Throughput                   %        18.09
+    Duration                         ms         8.13
+    L1/TEX Cache Throughput           %        73.21
+    L2 Cache Throughput               %        16.55
+    SM Active Cycles              cycle   12,912,397
+    Compute (SM) Throughput           %        31.36
+    ----------------------- ----------- ------------
+
+    OPT   This workload exhibits low compute throughput and memory bandwidth utilization relative to the peak           
+          performance of this device. Achieved compute throughput and/or memory bandwidth below 60.0% of peak           
+          typically indicate latency issues. Look at Scheduler Statistics and Warp State Statistics for potential       
+          reasons.                                                                                                      
+
+==WARNING== Note: Running with unmodified GPU clocks. If not controlled otherwise, profiling results may be inconsistent.
+==PROF== Connected to process 3471 (/content/cuda-triangle-counting/bin/gpu_tc)
+GPU: Tesla T4, SMs=40, cc=7.5
+loaded n=1696415 m=11095298 max_out_deg=231
+v4 tasks=10332866 (chunk=128), host task build 278.18 ms
+gpu_v1_edge_per_thread,data/as-Skitter.txt,1696415,11095298,28769868,9.383,21.866,31.249
+gpu_v2_warp_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,19.861,21.866,41.727
+gpu_v3_block_smem,data/as-Skitter.txt,1696415,11095298,28769868,24.487,11.867,36.354
+gpu_v4_task_warp,data/as-Skitter.txt,1696415,11095298,28769868,20.998,43.209,342.388
+==PROF== Profiling "tc_group_per_edge": 0%....50%....100% - 8 passes
+gpu_v5_g2_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,7.510,21.866,29.376
+gpu_v5_g4_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,7.300,21.866,29.166
+gpu_v5_g8_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,8.937,21.866,30.804
+gpu_v5_g16_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,13.869,21.866,35.735
+gpu_v6_vertex_per_thread,data/as-Skitter.txt,1696415,11095298,28769868,17.984,11.867,29.851
+gpu_v7_edge_search_src,data/as-Skitter.txt,1696415,11095298,28769868,9.564,11.867,21.431
+all kernels verified against CPU count: 28769868
+==PROF== Disconnected from process 3471
+[3471] gpu_tc@127.0.0.1
+  void tc_group_per_edge<2>(const unsigned int *, const unsigned int *, const unsigned int *, unsigned int, unsigned long long *) (86683, 1, 1)x(256, 1, 1), Context 1, Stream 7, Device 0, CC 7.5
+    Warning: Data collection happened without fixed GPU frequencies. Profiling results may be inconsistent.
+    Section: GPU Speed Of Light Throughput
+    ----------------------- ----------- -------------
+    Metric Name             Metric Unit  Metric Value
+    ----------------------- ----------- -------------
+    DRAM Frequency                  Ghz          5.00
+    SM Frequency                    Ghz          1.59
+    Elapsed Cycles                cycle    11,712,246
+    Memory Throughput                 %         39.38
+    DRAM Throughput                   %         21.90
+    Duration                         ms          7.35
+    L1/TEX Cache Throughput           %         78.75
+    L2 Cache Throughput               %         11.85
+    SM Active Cycles              cycle 11,685,289.50
+    Compute (SM) Throughput           %         31.99
+    ----------------------- ----------- -------------
+
+    OPT   This workload exhibits low compute throughput and memory bandwidth utilization relative to the peak           
+          performance of this device. Achieved compute throughput and/or memory bandwidth below 60.0% of peak           
+          typically indicate latency issues. Look at Scheduler Statistics and Warp State Statistics for potential       
+          reasons.                                                                                                      
+

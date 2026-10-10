@@ -1,0 +1,322 @@
+GPU 0: Tesla T4 (UUID: GPU-de198fa5-3fef-c0c1-b0a0-ea5b32b4fc99)
+/usr/local/cuda/bin/nvcc
+/content
+/content/cuda-triangle-counting
+2539d08 Stage 4: kernels v8 (warp-per-vertex shared-memory hash) and v9 (work-sorted edges), cuGraph reference
+g++ -O3 -std=c++17 -fopenmp src/cpu_tc.cpp -o bin/cpu_tc
+nvcc -O3 -std=c++17 -arch=sm_75 -Xcompiler -fopenmp src/gpu_tc.cu -o bin/gpu_tc
+PASS emu_default data/t_pl900.txt (brute force=1314)
+ALL EMULATOR TESTS PASSED
+downloading https://snap.stanford.edu/data/wiki-Vote.txt.gz
+downloading https://snap.stanford.edu/data/email-Enron.txt.gz
+downloading https://snap.stanford.edu/data/as-skitter.txt.gz
+downloading https://snap.stanford.edu/data/bigdata/communities/com-lj.ungraph.txt.gz
+== summary
+data/Wiki-Vote.txt        1095061 bytes       103689 edge lines
+data/email-Enron.txt      4049333 bytes       367662 edge lines
+data/as-Skitter.txt     149105700 bytes     11095298 edge lines
+data/com-LiveJournal.txt    501553897 bytes     34681189 edge lines
+== data/Wiki-Vote.txt
+loaded n=8298 m=100762 max_out_deg=74 in 16.6 ms
+cpu_serial,data/Wiki-Vote.txt,8298,100762,608389,35.745
+cpu_omp2,data/Wiki-Vote.txt,8298,100762,608389,21.639
+GPU: Tesla T4, SMs=40, cc=7.5
+loaded n=8298 m=100762 max_out_deg=74
+v4 tasks=99671 (chunk=128), host task build 0.88 ms
+v9 edge order built, host time 1.84 ms
+all kernels verified against CPU count: 608389
+gpu_v1_edge_per_thread,data/Wiki-Vote.txt,8298,100762,608389,0.134,0.971,1.105
+gpu_v2_warp_per_edge,data/Wiki-Vote.txt,8298,100762,608389,0.174,0.971,1.145
+gpu_v3_block_smem,data/Wiki-Vote.txt,8298,100762,608389,0.162,0.838,1.000
+gpu_v4_task_warp,data/Wiki-Vote.txt,8298,100762,608389,0.183,1.253,2.318
+gpu_v5_g2_per_edge,data/Wiki-Vote.txt,8298,100762,608389,0.141,0.971,1.112
+gpu_v5_g4_per_edge,data/Wiki-Vote.txt,8298,100762,608389,0.111,0.971,1.081
+gpu_v5_g8_per_edge,data/Wiki-Vote.txt,8298,100762,608389,0.109,0.971,1.080
+gpu_v5_g16_per_edge,data/Wiki-Vote.txt,8298,100762,608389,0.128,0.971,1.099
+gpu_v6_vertex_per_thread,data/Wiki-Vote.txt,8298,100762,608389,0.983,0.838,1.821
+gpu_v7_edge_search_src,data/Wiki-Vote.txt,8298,100762,608389,0.138,0.838,0.976
+gpu_v8_warp_vertex_hash,data/Wiki-Vote.txt,8298,100762,608389,0.219,0.838,1.057
+gpu_v9_edge_sorted,data/Wiki-Vote.txt,8298,100762,608389,0.139,1.107,3.090
+== data/email-Enron.txt
+loaded n=36692 m=183831 max_out_deg=70 in 63.4 ms
+cpu_serial,data/email-Enron.txt,36692,183831,727044,33.497
+cpu_omp2,data/email-Enron.txt,36692,183831,727044,20.328
+GPU: Tesla T4, SMs=40, cc=7.5
+loaded n=36692 m=183831 max_out_deg=70
+v4 tasks=176051 (chunk=128), host task build 1.71 ms
+v9 edge order built, host time 2.71 ms
+all kernels verified against CPU count: 727044
+gpu_v1_edge_per_thread,data/email-Enron.txt,36692,183831,727044,0.158,0.596,0.754
+gpu_v2_warp_per_edge,data/email-Enron.txt,36692,183831,727044,0.252,0.596,0.847
+gpu_v3_block_smem,data/email-Enron.txt,36692,183831,727044,0.410,0.336,0.746
+gpu_v4_task_warp,data/email-Enron.txt,36692,183831,727044,0.264,1.086,3.058
+gpu_v5_g2_per_edge,data/email-Enron.txt,36692,183831,727044,0.126,0.596,0.721
+gpu_v5_g4_per_edge,data/email-Enron.txt,36692,183831,727044,0.104,0.596,0.700
+gpu_v5_g8_per_edge,data/email-Enron.txt,36692,183831,727044,0.117,0.596,0.712
+gpu_v5_g16_per_edge,data/email-Enron.txt,36692,183831,727044,0.159,0.596,0.754
+gpu_v6_vertex_per_thread,data/email-Enron.txt,36692,183831,727044,0.894,0.336,1.230
+gpu_v7_edge_search_src,data/email-Enron.txt,36692,183831,727044,0.160,0.336,0.496
+gpu_v8_warp_vertex_hash,data/email-Enron.txt,36692,183831,727044,0.203,0.336,0.539
+gpu_v9_edge_sorted,data/email-Enron.txt,36692,183831,727044,0.168,0.840,3.714
+== data/as-Skitter.txt
+loaded n=1696415 m=11095298 max_out_deg=231 in 1720.3 ms
+cpu_serial,data/as-Skitter.txt,1696415,11095298,28769868,1670.206
+cpu_omp2,data/as-Skitter.txt,1696415,11095298,28769868,1048.819
+GPU: Tesla T4, SMs=40, cc=7.5
+loaded n=1696415 m=11095298 max_out_deg=231
+v4 tasks=10332866 (chunk=128), host task build 171.96 ms
+v9 edge order built, host time 210.93 ms
+all kernels verified against CPU count: 28769868
+gpu_v1_edge_per_thread,data/as-Skitter.txt,1696415,11095298,28769868,8.928,20.666,29.593
+gpu_v2_warp_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,18.978,20.666,39.644
+gpu_v3_block_smem,data/as-Skitter.txt,1696415,11095298,28769868,22.560,11.231,33.792
+gpu_v4_task_warp,data/as-Skitter.txt,1696415,11095298,28769868,20.523,38.798,231.285
+gpu_v5_g2_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,8.181,20.666,28.846
+gpu_v5_g4_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,8.116,20.666,28.781
+gpu_v5_g8_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,9.480,20.666,30.146
+gpu_v5_g16_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,13.053,20.666,33.719
+gpu_v6_vertex_per_thread,data/as-Skitter.txt,1696415,11095298,28769868,16.446,11.231,27.677
+gpu_v7_edge_search_src,data/as-Skitter.txt,1696415,11095298,28769868,8.851,11.231,20.082
+gpu_v8_warp_vertex_hash,data/as-Skitter.txt,1696415,11095298,28769868,12.628,11.231,23.860
+gpu_v9_edge_sorted,data/as-Skitter.txt,1696415,11095298,28769868,9.101,30.420,250.450
+== data/com-LiveJournal.txt
+loaded n=4036538 m=34681189 max_out_deg=524 in 6852.0 ms
+cpu_serial,data/com-LiveJournal.txt,4036538,34681189,177820130,10830.754
+cpu_omp2,data/com-LiveJournal.txt,4036538,34681189,177820130,6362.185
+GPU: Tesla T4, SMs=40, cc=7.5
+loaded n=4036538 m=34681189 max_out_deg=524
+v4 tasks=34644990 (chunk=128), host task build 757.01 ms
+v9 edge order built, host time 824.67 ms
+all kernels verified against CPU count: 177820130
+gpu_v1_edge_per_thread,data/com-LiveJournal.txt,4036538,34681189,177820130,55.976,61.624,117.600
+gpu_v2_warp_per_edge,data/com-LiveJournal.txt,4036538,34681189,177820130,69.589,61.624,131.213
+gpu_v3_block_smem,data/com-LiveJournal.txt,4036538,34681189,177820130,73.255,32.599,105.854
+gpu_v4_task_warp,data/com-LiveJournal.txt,4036538,34681189,177820130,75.950,119.966,952.928
+gpu_v5_g2_per_edge,data/com-LiveJournal.txt,4036538,34681189,177820130,56.901,61.624,118.525
+gpu_v5_g4_per_edge,data/com-LiveJournal.txt,4036538,34681189,177820130,49.147,61.624,110.771
+gpu_v5_g8_per_edge,data/com-LiveJournal.txt,4036538,34681189,177820130,51.112,61.624,112.736
+gpu_v5_g16_per_edge,data/com-LiveJournal.txt,4036538,34681189,177820130,57.154,61.624,118.778
+gpu_v6_vertex_per_thread,data/com-LiveJournal.txt,4036538,34681189,177820130,115.479,32.599,148.078
+gpu_v7_edge_search_src,data/com-LiveJournal.txt,4036538,34681189,177820130,57.330,32.599,89.929
+gpu_v8_warp_vertex_hash,data/com-LiveJournal.txt,4036538,34681189,177820130,61.315,32.599,93.914
+gpu_v9_edge_sorted,data/com-LiveJournal.txt,4036538,34681189,177820130,61.092,93.292,979.055
+appended to results/results.csv
+== data/Wiki-Vote.txt
+loaded n=8298 m=100762 max_out_deg=74 in 25.9 ms
+cpu_serial,data/Wiki-Vote.txt,8298,100762,608389,45.884
+cpu_omp2,data/Wiki-Vote.txt,8298,100762,608389,41.682
+GPU: Tesla T4, SMs=40, cc=7.5
+loaded n=8298 m=100762 max_out_deg=74
+v4 tasks=99671 (chunk=128), host task build 1.45 ms
+v9 edge order built, host time 2.52 ms
+all kernels verified against CPU count: 608389
+gpu_v1_edge_per_thread_pinned,data/Wiki-Vote.txt,8298,100762,608389,0.137,0.131,0.268
+gpu_v2_warp_per_edge_pinned,data/Wiki-Vote.txt,8298,100762,608389,0.176,0.131,0.307
+gpu_v3_block_smem_pinned,data/Wiki-Vote.txt,8298,100762,608389,0.164,0.082,0.246
+gpu_v4_task_warp_pinned,data/Wiki-Vote.txt,8298,100762,608389,0.186,0.233,1.871
+gpu_v5_g2_per_edge_pinned,data/Wiki-Vote.txt,8298,100762,608389,0.143,0.131,0.274
+gpu_v5_g4_per_edge_pinned,data/Wiki-Vote.txt,8298,100762,608389,0.111,0.131,0.242
+gpu_v5_g8_per_edge_pinned,data/Wiki-Vote.txt,8298,100762,608389,0.111,0.131,0.242
+gpu_v5_g16_per_edge_pinned,data/Wiki-Vote.txt,8298,100762,608389,0.129,0.131,0.260
+gpu_v6_vertex_per_thread_pinned,data/Wiki-Vote.txt,8298,100762,608389,1.001,0.082,1.083
+gpu_v7_edge_search_src_pinned,data/Wiki-Vote.txt,8298,100762,608389,0.140,0.082,0.221
+gpu_v8_warp_vertex_hash_pinned,data/Wiki-Vote.txt,8298,100762,608389,0.219,0.082,0.301
+gpu_v9_edge_sorted_pinned,data/Wiki-Vote.txt,8298,100762,608389,0.140,0.181,2.842
+== data/email-Enron.txt
+loaded n=36692 m=183831 max_out_deg=70 in 65.1 ms
+cpu_serial,data/email-Enron.txt,36692,183831,727044,33.656
+cpu_omp2,data/email-Enron.txt,36692,183831,727044,20.220
+GPU: Tesla T4, SMs=40, cc=7.5
+loaded n=36692 m=183831 max_out_deg=70
+v4 tasks=176051 (chunk=128), host task build 1.67 ms
+v9 edge order built, host time 2.79 ms
+all kernels verified against CPU count: 727044
+gpu_v1_edge_per_thread_pinned,data/email-Enron.txt,36692,183831,727044,0.158,0.193,0.351
+gpu_v2_warp_per_edge_pinned,data/email-Enron.txt,36692,183831,727044,0.250,0.193,0.443
+gpu_v3_block_smem_pinned,data/email-Enron.txt,36692,183831,727044,0.408,0.119,0.527
+gpu_v4_task_warp_pinned,data/email-Enron.txt,36692,183831,727044,0.267,0.337,2.276
+gpu_v5_g2_per_edge_pinned,data/email-Enron.txt,36692,183831,727044,0.127,0.193,0.320
+gpu_v5_g4_per_edge_pinned,data/email-Enron.txt,36692,183831,727044,0.105,0.193,0.298
+gpu_v5_g8_per_edge_pinned,data/email-Enron.txt,36692,183831,727044,0.117,0.193,0.310
+gpu_v5_g16_per_edge_pinned,data/email-Enron.txt,36692,183831,727044,0.160,0.193,0.353
+gpu_v6_vertex_per_thread_pinned,data/email-Enron.txt,36692,183831,727044,0.903,0.119,1.022
+gpu_v7_edge_search_src_pinned,data/email-Enron.txt,36692,183831,727044,0.161,0.119,0.280
+gpu_v8_warp_vertex_hash_pinned,data/email-Enron.txt,36692,183831,727044,0.203,0.119,0.322
+gpu_v9_edge_sorted_pinned,data/email-Enron.txt,36692,183831,727044,0.170,0.270,3.233
+== data/as-Skitter.txt
+loaded n=1696415 m=11095298 max_out_deg=231 in 1704.5 ms
+cpu_serial,data/as-Skitter.txt,1696415,11095298,28769868,1658.693
+cpu_omp2,data/as-Skitter.txt,1696415,11095298,28769868,1043.642
+GPU: Tesla T4, SMs=40, cc=7.5
+loaded n=1696415 m=11095298 max_out_deg=231
+v4 tasks=10332866 (chunk=128), host task build 180.36 ms
+v9 edge order built, host time 205.40 ms
+all kernels verified against CPU count: 28769868
+gpu_v1_edge_per_thread_pinned,data/as-Skitter.txt,1696415,11095298,28769868,9.122,7.784,16.906
+gpu_v2_warp_per_edge_pinned,data/as-Skitter.txt,1696415,11095298,28769868,19.129,7.784,26.913
+gpu_v3_block_smem_pinned,data/as-Skitter.txt,1696415,11095298,28769868,23.095,4.178,27.273
+gpu_v4_task_warp_pinned,data/as-Skitter.txt,1696415,11095298,28769868,20.616,14.505,215.481
+gpu_v5_g2_per_edge_pinned,data/as-Skitter.txt,1696415,11095298,28769868,8.190,7.784,15.974
+gpu_v5_g4_per_edge_pinned,data/as-Skitter.txt,1696415,11095298,28769868,8.252,7.784,16.035
+gpu_v5_g8_per_edge_pinned,data/as-Skitter.txt,1696415,11095298,28769868,9.622,7.784,17.405
+gpu_v5_g16_per_edge_pinned,data/as-Skitter.txt,1696415,11095298,28769868,13.167,7.784,20.950
+gpu_v6_vertex_per_thread_pinned,data/as-Skitter.txt,1696415,11095298,28769868,16.519,4.178,20.697
+gpu_v7_edge_search_src_pinned,data/as-Skitter.txt,1696415,11095298,28769868,9.023,4.178,13.201
+gpu_v8_warp_vertex_hash_pinned,data/as-Skitter.txt,1696415,11095298,28769868,12.684,4.178,16.862
+gpu_v9_edge_sorted_pinned,data/as-Skitter.txt,1696415,11095298,28769868,9.030,11.389,225.820
+== data/com-LiveJournal.txt
+loaded n=4036538 m=34681189 max_out_deg=524 in 7549.2 ms
+cpu_serial,data/com-LiveJournal.txt,4036538,34681189,177820130,10742.980
+cpu_omp2,data/com-LiveJournal.txt,4036538,34681189,177820130,6362.201
+GPU: Tesla T4, SMs=40, cc=7.5
+loaded n=4036538 m=34681189 max_out_deg=524
+v4 tasks=34644990 (chunk=128), host task build 728.32 ms
+v9 edge order built, host time 988.50 ms
+all kernels verified against CPU count: 177820130
+gpu_v1_edge_per_thread_pinned,data/com-LiveJournal.txt,4036538,34681189,177820130,56.062,23.867,79.929
+gpu_v2_warp_per_edge_pinned,data/com-LiveJournal.txt,4036538,34681189,177820130,70.039,23.867,93.906
+gpu_v3_block_smem_pinned,data/com-LiveJournal.txt,4036538,34681189,177820130,73.703,12.613,86.316
+gpu_v4_task_warp_pinned,data/com-LiveJournal.txt,4036538,34681189,177820130,75.793,46.372,850.487
+gpu_v5_g2_per_edge_pinned,data/com-LiveJournal.txt,4036538,34681189,177820130,57.315,23.867,81.182
+gpu_v5_g4_per_edge_pinned,data/com-LiveJournal.txt,4036538,34681189,177820130,49.530,23.867,73.397
+gpu_v5_g8_per_edge_pinned,data/com-LiveJournal.txt,4036538,34681189,177820130,51.817,23.867,75.684
+gpu_v5_g16_per_edge_pinned,data/com-LiveJournal.txt,4036538,34681189,177820130,57.613,23.867,81.479
+gpu_v6_vertex_per_thread_pinned,data/com-LiveJournal.txt,4036538,34681189,177820130,115.035,12.613,127.649
+gpu_v7_edge_search_src_pinned,data/com-LiveJournal.txt,4036538,34681189,177820130,57.952,12.613,70.565
+gpu_v8_warp_vertex_hash_pinned,data/com-LiveJournal.txt,4036538,34681189,177820130,61.489,12.613,74.103
+gpu_v9_edge_sorted_pinned,data/com-LiveJournal.txt,4036538,34681189,177820130,61.764,35.141,1085.405
+appended to results/results.csv
+### Wiki-Vote  (n=8298, m=100762)
+
+Speedup columns use kernel-only time for GPU rows. OMP reference: cpu_omp2.
+
+| impl | GPU | triangles | kernel/CPU ms | end-to-end ms (GPU) | speedup vs cpu_serial | speedup vs OMP | check |
+|---|---|---|---|---|---|---|---|
+| cpu_serial | - | 608389 | 35.235 | - | - | - | ok |
+| cpu_omp2 | - | 608389 | 21.345 | - | 1.65x | - | ok |
+| gpu_v1_edge_per_thread | Tesla T4 | 608389 | 0.134 | 1.105 | 262.95x | 159.29x | ok |
+| gpu_v1_edge_per_thread_pinned | Tesla T4 | 608389 | 0.137 | 0.268 | 257.19x | 155.80x | ok |
+| gpu_v2_warp_per_edge | Tesla T4 | 608389 | 0.174 | 1.145 | 202.50x | 122.67x | ok |
+| gpu_v2_warp_per_edge_pinned | Tesla T4 | 608389 | 0.176 | 0.307 | 200.20x | 121.28x | ok |
+| gpu_v3_block_smem | Tesla T4 | 608389 | 0.162 | 1.000 | 217.50x | 131.76x | ok |
+| gpu_v3_block_smem_pinned | Tesla T4 | 608389 | 0.164 | 0.246 | 214.85x | 130.15x | ok |
+| gpu_v4_task_warp | Tesla T4 | 608389 | 0.183 | 2.318 | 192.54x | 116.64x | ok |
+| gpu_v4_task_warp_pinned | Tesla T4 | 608389 | 0.186 | 1.871 | 189.44x | 114.76x | ok |
+| gpu_v5_g16_per_edge | Tesla T4 | 608389 | 0.128 | 1.099 | 275.27x | 166.76x | ok |
+| gpu_v5_g16_per_edge_pinned | Tesla T4 | 608389 | 0.129 | 0.260 | 273.14x | 165.47x | ok |
+| gpu_v5_g2_per_edge | Tesla T4 | 608389 | 0.141 | 1.112 | 249.89x | 151.38x | ok |
+| gpu_v5_g2_per_edge_pinned | Tesla T4 | 608389 | 0.143 | 0.274 | 246.40x | 149.27x | ok |
+| gpu_v5_g4_per_edge | Tesla T4 | 608389 | 0.111 | 1.081 | 317.43x | 192.30x | ok |
+| gpu_v5_g4_per_edge_pinned | Tesla T4 | 608389 | 0.111 | 0.242 | 317.43x | 192.30x | ok |
+| gpu_v5_g8_per_edge | Tesla T4 | 608389 | 0.109 | 1.080 | 323.26x | 195.83x | ok |
+| gpu_v5_g8_per_edge_pinned | Tesla T4 | 608389 | 0.111 | 0.242 | 317.43x | 192.30x | ok |
+| gpu_v6_vertex_per_thread | Tesla T4 | 608389 | 0.983 | 1.821 | 35.84x | 21.71x | ok |
+| gpu_v6_vertex_per_thread_pinned | Tesla T4 | 608389 | 1.001 | 1.083 | 35.20x | 21.32x | ok |
+| gpu_v7_edge_search_src | Tesla T4 | 608389 | 0.138 | 0.976 | 255.33x | 154.67x | ok |
+| gpu_v7_edge_search_src_pinned | Tesla T4 | 608389 | 0.140 | 0.220 | 251.68x | 152.46x | ok |
+| gpu_v8_warp_vertex_hash | Tesla T4 | 608389 | 0.219 | 1.057 | 160.89x | 97.47x | ok |
+| gpu_v8_warp_vertex_hash_pinned | Tesla T4 | 608389 | 0.219 | 0.301 | 160.89x | 97.47x | ok |
+| gpu_v9_edge_sorted | Tesla T4 | 608389 | 0.139 | 3.090 | 253.49x | 153.56x | ok |
+| gpu_v9_edge_sorted_pinned | Tesla T4 | 608389 | 0.140 | 2.842 | 251.68x | 152.46x | ok |
+
+### as-Skitter  (n=1696415, m=11095298)
+
+Speedup columns use kernel-only time for GPU rows. OMP reference: cpu_omp2.
+
+| impl | GPU | triangles | kernel/CPU ms | end-to-end ms (GPU) | speedup vs cpu_serial | speedup vs OMP | check |
+|---|---|---|---|---|---|---|---|
+| cpu_serial | - | 28769868 | 1641.447 | - | - | - | ok |
+| cpu_omp2 | - | 28769868 | 1036.358 | - | 1.58x | - | ok |
+| gpu_v1_edge_per_thread | Tesla T4 | 28769868 | 8.928 | 29.593 | 183.85x | 116.08x | ok |
+| gpu_v1_edge_per_thread_pinned | Tesla T4 | 28769868 | 9.122 | 16.906 | 179.94x | 113.61x | ok |
+| gpu_v2_warp_per_edge | Tesla T4 | 28769868 | 18.978 | 39.644 | 86.49x | 54.61x | ok |
+| gpu_v2_warp_per_edge_pinned | Tesla T4 | 28769868 | 19.129 | 26.913 | 85.81x | 54.18x | ok |
+| gpu_v3_block_smem | Tesla T4 | 28769868 | 22.560 | 33.792 | 72.76x | 45.94x | ok |
+| gpu_v3_block_smem_pinned | Tesla T4 | 28769868 | 23.095 | 27.273 | 71.07x | 44.87x | ok |
+| gpu_v4_task_warp | Tesla T4 | 28769868 | 20.523 | 231.285 | 79.98x | 50.50x | ok |
+| gpu_v4_task_warp_pinned | Tesla T4 | 28769868 | 20.616 | 215.481 | 79.62x | 50.27x | ok |
+| gpu_v5_g16_per_edge | Tesla T4 | 28769868 | 13.053 | 33.719 | 125.75x | 79.40x | ok |
+| gpu_v5_g16_per_edge_pinned | Tesla T4 | 28769868 | 13.167 | 20.950 | 124.66x | 78.71x | ok |
+| gpu_v5_g2_per_edge | Tesla T4 | 28769868 | 8.181 | 28.846 | 200.64x | 126.68x | ok |
+| gpu_v5_g2_per_edge_pinned | Tesla T4 | 28769868 | 8.190 | 15.974 | 200.42x | 126.54x | ok |
+| gpu_v5_g4_per_edge | Tesla T4 | 28769868 | 8.116 | 28.781 | 202.25x | 127.69x | ok |
+| gpu_v5_g4_per_edge_pinned | Tesla T4 | 28769868 | 8.252 | 16.035 | 198.92x | 125.59x | ok |
+| gpu_v5_g8_per_edge | Tesla T4 | 28769868 | 9.480 | 30.146 | 173.15x | 109.32x | ok |
+| gpu_v5_g8_per_edge_pinned | Tesla T4 | 28769868 | 9.622 | 17.405 | 170.59x | 107.71x | ok |
+| gpu_v6_vertex_per_thread | Tesla T4 | 28769868 | 16.446 | 27.677 | 99.81x | 63.02x | ok |
+| gpu_v6_vertex_per_thread_pinned | Tesla T4 | 28769868 | 16.519 | 20.697 | 99.37x | 62.74x | ok |
+| gpu_v7_edge_search_src | Tesla T4 | 28769868 | 8.851 | 20.082 | 185.45x | 117.09x | ok |
+| gpu_v7_edge_search_src_pinned | Tesla T4 | 28769868 | 9.023 | 13.201 | 181.92x | 114.86x | ok |
+| gpu_v8_warp_vertex_hash | Tesla T4 | 28769868 | 12.628 | 23.860 | 129.98x | 82.07x | ok |
+| gpu_v8_warp_vertex_hash_pinned | Tesla T4 | 28769868 | 12.684 | 16.862 | 129.41x | 81.71x | ok |
+| gpu_v9_edge_sorted | Tesla T4 | 28769868 | 9.101 | 250.450 | 180.36x | 113.87x | ok |
+| gpu_v9_edge_sorted_pinned | Tesla T4 | 28769868 | 9.030 | 225.820 | 181.78x | 114.77x | ok |
+
+### com-LiveJournal  (n=4036538, m=34681189)
+
+Speedup columns use kernel-only time for GPU rows. OMP reference: cpu_omp2.
+
+| impl | GPU | triangles | kernel/CPU ms | end-to-end ms (GPU) | speedup vs cpu_serial | speedup vs OMP | check |
+|---|---|---|---|---|---|---|---|
+| cpu_serial | - | 177820130 | 10742.980 | - | - | - | ok |
+| cpu_omp2 | - | 177820130 | 6362.185 | - | 1.69x | - | ok |
+| gpu_v1_edge_per_thread | Tesla T4 | 177820130 | 55.976 | 117.600 | 191.92x | 113.66x | ok |
+| gpu_v1_edge_per_thread_pinned | Tesla T4 | 177820130 | 56.062 | 79.929 | 191.63x | 113.48x | ok |
+| gpu_v2_warp_per_edge | Tesla T4 | 177820130 | 69.589 | 131.213 | 154.38x | 91.43x | ok |
+| gpu_v2_warp_per_edge_pinned | Tesla T4 | 177820130 | 70.039 | 93.906 | 153.39x | 90.84x | ok |
+| gpu_v3_block_smem | Tesla T4 | 177820130 | 73.255 | 105.854 | 146.65x | 86.85x | ok |
+| gpu_v3_block_smem_pinned | Tesla T4 | 177820130 | 73.703 | 86.316 | 145.76x | 86.32x | ok |
+| gpu_v4_task_warp | Tesla T4 | 177820130 | 75.950 | 952.928 | 141.45x | 83.77x | ok |
+| gpu_v4_task_warp_pinned | Tesla T4 | 177820130 | 75.793 | 850.487 | 141.74x | 83.94x | ok |
+| gpu_v5_g16_per_edge | Tesla T4 | 177820130 | 57.154 | 118.778 | 187.97x | 111.32x | ok |
+| gpu_v5_g16_per_edge_pinned | Tesla T4 | 177820130 | 57.613 | 81.479 | 186.47x | 110.43x | ok |
+| gpu_v5_g2_per_edge | Tesla T4 | 177820130 | 56.901 | 118.525 | 188.80x | 111.81x | ok |
+| gpu_v5_g2_per_edge_pinned | Tesla T4 | 177820130 | 57.315 | 81.182 | 187.44x | 111.00x | ok |
+| gpu_v5_g4_per_edge | Tesla T4 | 177820130 | 49.147 | 110.771 | 218.59x | 129.45x | ok |
+| gpu_v5_g4_per_edge_pinned | Tesla T4 | 177820130 | 49.530 | 73.397 | 216.90x | 128.45x | ok |
+| gpu_v5_g8_per_edge | Tesla T4 | 177820130 | 51.112 | 112.736 | 210.19x | 124.48x | ok |
+| gpu_v5_g8_per_edge_pinned | Tesla T4 | 177820130 | 51.817 | 75.684 | 207.33x | 122.78x | ok |
+| gpu_v6_vertex_per_thread | Tesla T4 | 177820130 | 115.479 | 148.078 | 93.03x | 55.09x | ok |
+| gpu_v6_vertex_per_thread_pinned | Tesla T4 | 177820130 | 115.035 | 127.649 | 93.39x | 55.31x | ok |
+| gpu_v7_edge_search_src | Tesla T4 | 177820130 | 57.330 | 89.929 | 187.39x | 110.97x | ok |
+| gpu_v7_edge_search_src_pinned | Tesla T4 | 177820130 | 57.952 | 70.565 | 185.38x | 109.78x | ok |
+| gpu_v8_warp_vertex_hash | Tesla T4 | 177820130 | 61.315 | 93.914 | 175.21x | 103.76x | ok |
+| gpu_v8_warp_vertex_hash_pinned | Tesla T4 | 177820130 | 61.489 | 74.103 | 174.71x | 103.47x | ok |
+| gpu_v9_edge_sorted | Tesla T4 | 177820130 | 61.092 | 979.055 | 175.85x | 104.14x | ok |
+| gpu_v9_edge_sorted_pinned | Tesla T4 | 177820130 | 61.764 | 1085.405 | 173.94x | 103.01x | ok |
+
+### email-Enron  (n=36692, m=183831)
+
+Speedup columns use kernel-only time for GPU rows. OMP reference: cpu_omp2.
+
+| impl | GPU | triangles | kernel/CPU ms | end-to-end ms (GPU) | speedup vs cpu_serial | speedup vs OMP | check |
+|---|---|---|---|---|---|---|---|
+| cpu_serial | - | 727044 | 33.435 | - | - | - | ok |
+| cpu_omp2 | - | 727044 | 20.143 | - | 1.66x | - | ok |
+| gpu_v1_edge_per_thread | Tesla T4 | 727044 | 0.158 | 0.754 | 211.61x | 127.49x | ok |
+| gpu_v1_edge_per_thread_pinned | Tesla T4 | 727044 | 0.158 | 0.351 | 211.61x | 127.49x | ok |
+| gpu_v2_warp_per_edge | Tesla T4 | 727044 | 0.252 | 0.847 | 132.68x | 79.93x | ok |
+| gpu_v2_warp_per_edge_pinned | Tesla T4 | 727044 | 0.250 | 0.443 | 133.74x | 80.57x | ok |
+| gpu_v3_block_smem | Tesla T4 | 727044 | 0.410 | 0.746 | 81.55x | 49.13x | ok |
+| gpu_v3_block_smem_pinned | Tesla T4 | 727044 | 0.408 | 0.527 | 81.95x | 49.37x | ok |
+| gpu_v4_task_warp | Tesla T4 | 727044 | 0.264 | 3.058 | 126.65x | 76.30x | ok |
+| gpu_v4_task_warp_pinned | Tesla T4 | 727044 | 0.267 | 2.276 | 125.22x | 75.44x | ok |
+| gpu_v5_g16_per_edge | Tesla T4 | 727044 | 0.159 | 0.754 | 210.28x | 126.69x | ok |
+| gpu_v5_g16_per_edge_pinned | Tesla T4 | 727044 | 0.160 | 0.353 | 208.97x | 125.89x | ok |
+| gpu_v5_g2_per_edge | Tesla T4 | 727044 | 0.126 | 0.721 | 265.36x | 159.87x | ok |
+| gpu_v5_g2_per_edge_pinned | Tesla T4 | 727044 | 0.127 | 0.340 | 263.27x | 158.61x | ok |
+| gpu_v5_g4_per_edge | Tesla T4 | 727044 | 0.104 | 0.700 | 321.49x | 193.68x | ok |
+| gpu_v5_g4_per_edge_pinned | Tesla T4 | 727044 | 0.105 | 0.298 | 318.43x | 191.84x | ok |
+| gpu_v5_g8_per_edge | Tesla T4 | 727044 | 0.117 | 0.712 | 285.77x | 172.16x | ok |
+| gpu_v5_g8_per_edge_pinned | Tesla T4 | 727044 | 0.117 | 0.310 | 285.77x | 172.16x | ok |
+| gpu_v6_vertex_per_thread | Tesla T4 | 727044 | 0.894 | 1.230 | 37.40x | 22.53x | ok |
+| gpu_v6_vertex_per_thread_pinned | Tesla T4 | 727044 | 0.903 | 1.022 | 37.03x | 22.31x | ok |
+| gpu_v7_edge_search_src | Tesla T4 | 727044 | 0.160 | 0.496 | 208.97x | 125.89x | ok |
+| gpu_v7_edge_search_src_pinned | Tesla T4 | 727044 | 0.161 | 0.280 | 207.67x | 125.11x | ok |
+| gpu_v8_warp_vertex_hash | Tesla T4 | 727044 | 0.203 | 0.539 | 164.70x | 99.23x | ok |
+| gpu_v8_warp_vertex_hash_pinned | Tesla T4 | 727044 | 0.203 | 0.322 | 164.70x | 99.23x | ok |
+| gpu_v9_edge_sorted | Tesla T4 | 727044 | 0.168 | 3.714 | 199.02x | 119.90x | ok |
+| gpu_v9_edge_sorted_pinned | Tesla T4 | 727044 | 0.170 | 3.233 | 196.68x | 118.49x | ok |
+
+GPU(s) in results: Tesla T4
+

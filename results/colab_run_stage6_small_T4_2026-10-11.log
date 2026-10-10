@@ -1,0 +1,61 @@
+e0a620c Stage 6: test CoreExact weak-start path (shrink / multi-component) in emulator tests
+Tesla T4
+=== 19:30:49 make ARCH=sm_75
+g++ -O3 -std=c++17 -fopenmp src/cpu_tc.cpp -o bin/cpu_tc
+g++ -O3 -std=c++17 -fopenmp src/cpu_densest.cpp -o bin/cpu_densest
+g++ -O3 -std=c++17 -fopenmp src/cpu_dsg.cpp -o bin/cpu_dsg
+nvcc -O3 -std=c++17 -arch=sm_75 -Xcompiler -fopenmp src/gpu_tc.cu -o bin/gpu_tc
+nvcc -O3 -std=c++17 -arch=sm_75 -Xcompiler -fopenmp src/gpu_densest.cu -o bin/gpu_densest
+nvcc -O3 -std=c++17 -arch=sm_75 -Xcompiler -fopenmp src/gpu_dsg.cu -o bin/gpu_dsg
+--- exit 0
+=== 19:31:13 ./bin/gpu_densest data/Wiki-Vote.txt 1 10 --pinned
+GPU: Tesla T4, SMs=40, cc=7.5
+loaded n=8298 m=100762 max_out_deg=74 eps=1/10
+cpu_batch_peel,data/Wiki-Vote.txt,8298,100762,135276,314,430.815287,6,72.836,0.000,72.836
+cpu_batch_peel_omp,data/Wiki-Vote.txt,8298,100762,135276,314,430.815287,6,81.786,0.000,81.786
+cpu_greedy_peel,data/Wiki-Vote.txt,8298,100762,234009,464,504.329741,8298,182.380,0.000,182.380
+gpu_batch_peel_pinned,data/Wiki-Vote.txt,8298,100762,135276,314,430.815287,6,0.709,0.185,0.895
+GPU result verified bit-exact against cpu_batch_peel (best 135276 triangles / 314 vertices, 6 rounds)
+density ratio gpu/greedy = 0.854233 (gpu 430.815287, greedy 504.329741)
+--- exit 0
+=== 19:31:16 ./bin/gpu_dsg data/Wiki-Vote.txt --T 10 --pinned
+GPU: Tesla T4, SMs=40, cc=7.5
+loaded n=8298 m=100762 max_out_deg=74
+GPU core numbers verified element-wise against CPU Alg 3 (kmax 600, 819 rounds)
+lower bound 234009/464 = 504.329741 -> keep core >= 505: pruned graph n=473 m=20893 (of n=8298 m=100762)
+cpu_core_decomp,data/Wiki-Vote.txt,8298,100762,133345,281,474.537367,161.081,0.000,161.081,0,600
+gpu_core_decomp_pinned,data/Wiki-Vote.txt,8298,100762,133345,281,474.537367,135.973,0.148,136.121,819,600
+cpu_greedy,data/Wiki-Vote.txt,8298,100762,234009,464,504.329741,109.764,0.000,109.764,8298,0
+prune_kcore,data/Wiki-Vote.txt,473,20893,238517,473,504.264271,0.654,0.000,0.654,505,600
+cpu_core_exact_pruned,data/Wiki-Vote.txt,473,20893,235020,466,504.334764,12064.888,0.000,12064.888,27,0
+cpu_greedy_pp_pruned,data/Wiki-Vote.txt,473,20893,235020,466,504.334764,157.564,0.000,157.564,10,0
+pipeline_gpu_core_pinned,data/Wiki-Vote.txt,8298,100762,235020,466,504.334764,12311.280,0.148,12311.428,819,600
+pipeline_cpu_core,data/Wiki-Vote.txt,8298,100762,235020,466,504.334764,12336.388,0.000,12336.388,0,600
+optimum 235020/466 = 504.334764
+--- exit 0
+=== 19:31:31 ./bin/gpu_dsg data/Wiki-Vote.txt --T 10 --verify-full --pinned
+GPU: Tesla T4, SMs=40, cc=7.5
+loaded n=8298 m=100762 max_out_deg=74
+GPU core numbers verified element-wise against CPU Alg 3 (kmax 600, 819 rounds)
+lower bound 234009/464 = 504.329741 -> keep core >= 505: pruned graph n=473 m=20893 (of n=8298 m=100762)
+verify-full: optimum identical (235020/466) with and without pruning
+cpu_core_decomp,data/Wiki-Vote.txt,8298,100762,133345,281,474.537367,116.123,0.000,116.123,0,600
+gpu_core_decomp_pinned,data/Wiki-Vote.txt,8298,100762,133345,281,474.537367,134.690,0.131,134.821,819,600
+cpu_greedy,data/Wiki-Vote.txt,8298,100762,234009,464,504.329741,114.598,0.000,114.598,8298,0
+prune_kcore,data/Wiki-Vote.txt,473,20893,238517,473,504.264271,0.890,0.000,0.890,505,600
+cpu_core_exact_pruned,data/Wiki-Vote.txt,473,20893,235020,466,504.334764,12801.797,0.000,12801.797,27,0
+cpu_greedy_pp_pruned,data/Wiki-Vote.txt,473,20893,235020,466,504.334764,159.800,0.000,159.800,10,0
+pipeline_gpu_core_pinned,data/Wiki-Vote.txt,8298,100762,235020,466,504.334764,13051.975,0.131,13052.106,819,600
+pipeline_cpu_core,data/Wiki-Vote.txt,8298,100762,235020,466,504.334764,13033.408,0.000,13033.408,0,600
+cpu_core_exact_full,data/Wiki-Vote.txt,8298,100762,235020,466,504.334764,12886.371,0.000,12886.371,27,0
+optimum 235020/466 = 504.334764
+--- exit 0
+=== 19:32:00 ./bin/gpu_densest data/Email-Enron.txt 1 10 --pinned
+GPU: Tesla T4, SMs=40, cc=7.5
+cannot open data/Email-Enron.txt
+--- exit 1
+=== 19:32:00 ./bin/gpu_dsg data/Email-Enron.txt --T 10 --pinned
+GPU: Tesla T4, SMs=40, cc=7.5
+cannot open data/Email-Enron.txt
+--- exit 1
+ALL_DONE
