@@ -1,0 +1,5 @@
+bin/
+data/*.txt
+data/*.gz
+results/*.ncu-rep
+results/*.nsys-rep
