@@ -1,0 +1,87 @@
+Sat Oct 10 14:09:00 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.82.07              Driver Version: 580.82.07      CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  Tesla T4                       Off |   00000000:00:04.0 Off |                    0 |
+| N/A   51C    P8              9W /   70W |       0MiB /  15360MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+/content
+Cloning into 'cuda-triangle-counting'...
+remote: Enumerating objects: 42, done.
+remote: Counting objects: 100% (42/42), done.
+remote: Compressing objects: 100% (33/33), done.
+remote: Total 42 (delta 13), reused 36 (delta 7), pack-reused 0 (from 0)
+Receiving objects: 100% (42/42), 25.78 KiB | 463.00 KiB/s, done.
+Resolving deltas: 100% (13/13), done.
+/content/cuda-triangle-counting
+0de83c1 (HEAD -> main, origin/main, origin/HEAD) Fix SNAP download URLs (case-sensitive) and make benchmark scripts fail loudly
+cef7fde Create data/ and results/ folders automatically (fixes fresh-clone failure on Colab)
+68a2569 Colab notebook: point at the real repo URL
+g++ -O3 -std=c++17 -fopenmp src/cpu_tc.cpp -o bin/cpu_tc
+nvcc -O3 -std=c++17 -arch=sm_75 -Xcompiler -fopenmp src/gpu_tc.cu -o bin/gpu_tc
+665
+GPU: Tesla T4, SMs=40, cc=7.5
+loaded n=800 m=6395 max_out_deg=15
+v4 tasks=5854 (chunk=128), host task build 0.04 ms
+gpu_v1_edge_per_thread,data/test800.txt,800,6395,665,0.018,0.858,0.876
+gpu_v2_warp_per_edge,data/test800.txt,800,6395,665,0.025,0.858,0.882
+gpu_v3_block_smem,data/test800.txt,800,6395,665,0.031,0.837,0.868
+gpu_v4_task_warp,data/test800.txt,800,6395,665,0.025,0.899,0.968
+all kernels verified against CPU count: 665
+downloading https://snap.stanford.edu/data/wiki-Vote.txt.gz
+downloading https://snap.stanford.edu/data/email-Enron.txt.gz
+downloading https://snap.stanford.edu/data/as-skitter.txt.gz
+== summary
+data/Wiki-Vote.txt        1095061 bytes       103689 edge lines
+data/email-Enron.txt      4049333 bytes       367662 edge lines
+data/as-Skitter.txt     149105700 bytes     11095298 edge lines
+== data/Wiki-Vote.txt
+loaded n=8298 m=100762 max_out_deg=74 in 17.3 ms
+cpu_serial,data/Wiki-Vote.txt,8298,100762,608389,35.129
+cpu_omp2,data/Wiki-Vote.txt,8298,100762,608389,21.632
+GPU: Tesla T4, SMs=40, cc=7.5
+loaded n=8298 m=100762 max_out_deg=74
+v4 tasks=99671 (chunk=128), host task build 1.11 ms
+all kernels verified against CPU count: 608389
+gpu_v1_edge_per_thread,data/Wiki-Vote.txt,8298,100762,608389,0.259,0.342,0.602
+gpu_v2_warp_per_edge,data/Wiki-Vote.txt,8298,100762,608389,0.338,0.342,0.680
+gpu_v3_block_smem,data/Wiki-Vote.txt,8298,100762,608389,0.318,0.208,0.526
+gpu_v4_task_warp,data/Wiki-Vote.txt,8298,100762,608389,0.358,0.605,2.069
+== data/email-Enron.txt
+loaded n=36692 m=183831 max_out_deg=70 in 62.3 ms
+cpu_serial,data/email-Enron.txt,36692,183831,727044,33.149
+cpu_omp2,data/email-Enron.txt,36692,183831,727044,20.649
+GPU: Tesla T4, SMs=40, cc=7.5
+loaded n=36692 m=183831 max_out_deg=70
+v4 tasks=176051 (chunk=128), host task build 2.37 ms
+all kernels verified against CPU count: 727044
+gpu_v1_edge_per_thread,data/email-Enron.txt,36692,183831,727044,0.291,0.549,0.839
+gpu_v2_warp_per_edge,data/email-Enron.txt,36692,183831,727044,0.515,0.549,1.063
+gpu_v3_block_smem,data/email-Enron.txt,36692,183831,727044,0.846,0.330,1.176
+gpu_v4_task_warp,data/email-Enron.txt,36692,183831,727044,0.541,0.981,3.890
+== data/as-Skitter.txt
+loaded n=1696415 m=11095298 max_out_deg=231 in 1755.0 ms
+cpu_serial,data/as-Skitter.txt,1696415,11095298,28769868,1847.929
+cpu_omp2,data/as-Skitter.txt,1696415,11095298,28769868,1097.265
+GPU: Tesla T4, SMs=40, cc=7.5
+loaded n=1696415 m=11095298 max_out_deg=231
+v4 tasks=10332866 (chunk=128), host task build 205.37 ms
+all kernels verified against CPU count: 28769868
+gpu_v1_edge_per_thread,data/as-Skitter.txt,1696415,11095298,28769868,16.959,20.799,37.759
+gpu_v2_warp_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,27.854,20.799,48.654
+gpu_v3_block_smem,data/as-Skitter.txt,1696415,11095298,28769868,22.710,11.147,33.857
+gpu_v4_task_warp,data/as-Skitter.txt,1696415,11095298,28769868,20.321,39.167,264.860
+appended to results/results.csv

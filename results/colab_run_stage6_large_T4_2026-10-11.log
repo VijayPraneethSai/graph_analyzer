@@ -1,0 +1,64 @@
+=== 19:35:16 bash scripts/download_data.sh --large
+skip Wiki-Vote.txt (already present)
+skip email-Enron.txt (already present)
+skip as-Skitter.txt (already present)
+downloading https://snap.stanford.edu/data/bigdata/communities/com-lj.ungraph.txt.gz
+== summary
+data/Wiki-Vote.txt        1095061 bytes       103689 edge lines
+data/email-Enron.txt      4049333 bytes       367662 edge lines
+data/as-Skitter.txt     149105700 bytes     11095298 edge lines
+data/com-LiveJournal.txt    501553897 bytes     34681189 edge lines
+--- exit 0
+=== 19:35:25 ./bin/gpu_densest data/email-Enron.txt 1 10 --pinned
+GPU: Tesla T4, SMs=40, cc=7.5
+loaded n=36692 m=183831 max_out_deg=70 eps=1/10
+cpu_batch_peel,data/email-Enron.txt,36692,183831,253068,727,348.099037,7,59.033,0.000,59.033
+cpu_batch_peel_omp,data/email-Enron.txt,36692,183831,253068,727,348.099037,7,56.723,0.000,56.723
+cpu_greedy_peel,data/email-Enron.txt,36692,183831,155714,385,404.451948,36692,166.237,0.000,166.237
+gpu_batch_peel_pinned,data/email-Enron.txt,36692,183831,253068,727,348.099037,7,0.862,0.197,1.059
+GPU result verified bit-exact against cpu_batch_peel (best 253068 triangles / 727 vertices, 7 rounds)
+density ratio gpu/greedy = 0.860668 (gpu 348.099037, greedy 404.451948)
+--- exit 0
+=== 19:35:27 ./bin/gpu_dsg data/email-Enron.txt --T 10 --no-exact --pinned
+GPU: Tesla T4, SMs=40, cc=7.5
+loaded n=36692 m=183831 max_out_deg=70
+GPU core numbers verified element-wise against CPU Alg 3 (kmax 509, 1105 rounds)
+lower bound 155714/385 = 404.451948 -> keep core >= 405: pruned graph n=390 m=14163 (of n=36692 m=183831)
+cpu_core_decomp,data/email-Enron.txt,36692,183831,61074,175,348.994286,158.079,0.000,158.079,0,509
+gpu_core_decomp_pinned,data/email-Enron.txt,36692,183831,61074,175,348.994286,196.495,0.195,196.690,1105,509
+cpu_greedy,data/email-Enron.txt,36692,183831,155714,385,404.451948,151.859,0.000,151.859,36692,0
+prune_kcore,data/email-Enron.txt,390,14163,157734,390,404.446154,0.660,0.000,0.660,405,509
+cpu_greedy_pp_pruned,data/email-Enron.txt,390,14163,156929,388,404.456186,97.935,0.000,97.935,10,0
+--- exit 0
+=== 19:35:31 ./bin/gpu_densest data/as-Skitter.txt 1 10 --no-greedy --pinned
+GPU: Tesla T4, SMs=40, cc=7.5
+loaded n=1696415 m=11095298 max_out_deg=231 eps=1/10
+cpu_batch_peel,data/as-Skitter.txt,1696415,11095298,1299364,606,2144.165017,7,3725.920,0.000,3725.920
+cpu_batch_peel_omp,data/as-Skitter.txt,1696415,11095298,1299364,606,2144.165017,7,3057.423,0.000,3057.423
+gpu_batch_peel_pinned,data/as-Skitter.txt,1696415,11095298,1299364,606,2144.165017,7,33.133,7.838,40.971
+GPU result verified bit-exact against cpu_batch_peel (best 1299364 triangles / 606 vertices, 7 rounds)
+--- exit 0
+=== 19:35:43 ./bin/gpu_dsg data/as-Skitter.txt --T 10 --no-exact --pinned
+GPU: Tesla T4, SMs=40, cc=7.5
+loaded n=1696415 m=11095298 max_out_deg=231
+GPU core numbers verified element-wise against CPU Alg 3 (kmax 4549, 5626 rounds)
+lower bound 1417348/421 = 3366.622328 -> keep core >= 3367: pruned graph n=421 m=37391 (of n=1696415 m=11095298)
+cpu_core_decomp,data/as-Skitter.txt,1696415,11095298,478895,192,2494.244792,13347.358,0.000,13347.358,0,4549
+gpu_core_decomp_pinned,data/as-Skitter.txt,1696415,11095298,478895,192,2494.244792,27209.501,7.878,27217.379,5626,4549
+cpu_greedy,data/as-Skitter.txt,1696415,11095298,1417348,421,3366.622328,13281.841,0.000,13281.841,1696415,0
+prune_kcore,data/as-Skitter.txt,421,37391,1417348,421,3366.622328,20.049,0.000,20.049,3367,4549
+cpu_greedy_pp_pruned,data/as-Skitter.txt,421,37391,1417348,421,3366.622328,423.853,0.000,423.853,10,0
+--- exit 0
+=== 19:39:04 ./bin/gpu_densest data/com-LiveJournal.txt 1 10 --no-greedy --pinned
+GPU: Tesla T4, SMs=40, cc=7.5
+loaded n=4036538 m=34681189 max_out_deg=524 eps=1/10
+cpu_batch_peel,data/com-LiveJournal.txt,4036538,34681189,9142216,383,23870.015666,7,17640.462,0.000,17640.462
+cpu_batch_peel_omp,data/com-LiveJournal.txt,4036538,34681189,9142216,383,23870.015666,7,21369.959,0.000,21369.959
+gpu_batch_peel_pinned,data/com-LiveJournal.txt,4036538,34681189,9142216,383,23870.015666,7,333.634,23.852,357.486
+GPU result verified bit-exact against cpu_batch_peel (best 9142216 triangles / 383 vertices, 7 rounds)
+--- exit 0
+=== 19:40:06 ./bin/gpu_dsg data/com-LiveJournal.txt --T 10 --no-exact --pinned
+GPU: Tesla T4, SMs=40, cc=7.5
+loaded n=4036538 m=34681189 max_out_deg=524
+--- exit 124
+ALL_DONE

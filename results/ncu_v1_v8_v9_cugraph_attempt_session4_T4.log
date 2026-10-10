@@ -1,0 +1,365 @@
+/content/cuda-triangle-counting
+==PROF== Connected to process 222935 (/content/cuda-triangle-counting/bin/gpu_tc)
+GPU: Tesla T4, SMs=40, cc=7.5
+loaded n=1696415 m=11095298 max_out_deg=231
+v4 tasks=10332866 (chunk=128), host task build 271.12 ms
+v9 edge order built, host time 582.75 ms
+==PROF== Profiling "tc_edge_per_thread": 0%....50%....100% - 9 passes
+gpu_v1_edge_per_thread,data/as-Skitter.txt,1696415,11095298,28769868,14.891,44.172,59.063
+gpu_v2_warp_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,31.363,44.172,75.535
+gpu_v3_block_smem,data/as-Skitter.txt,1696415,11095298,28769868,29.440,24.389,53.829
+gpu_v4_task_warp,data/as-Skitter.txt,1696415,11095298,28769868,21.789,80.978,373.884
+gpu_v5_g2_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,8.530,44.172,52.702
+gpu_v5_g4_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,8.176,44.172,52.347
+gpu_v5_g8_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,9.841,44.172,54.012
+gpu_v5_g16_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,13.655,44.172,57.827
+gpu_v6_vertex_per_thread,data/as-Skitter.txt,1696415,11095298,28769868,17.449,24.389,41.838
+gpu_v7_edge_search_src,data/as-Skitter.txt,1696415,11095298,28769868,9.502,24.389,33.891
+gpu_v8_warp_vertex_hash,data/as-Skitter.txt,1696415,11095298,28769868,13.267,24.389,37.656
+gpu_v9_edge_sorted,data/as-Skitter.txt,1696415,11095298,28769868,9.513,64.274,656.538
+all kernels verified against CPU count: 28769868
+==PROF== Disconnected from process 222935
+[222935] gpu_tc@127.0.0.1
+  tc_edge_per_thread(const unsigned int *, const unsigned int *, const unsigned int *, unsigned int, unsigned long long *) (43342, 1, 1)x(256, 1, 1), Context 1, Stream 7, Device 0, CC 7.5
+    Section: Command line profiler metrics
+    ----------------------- ----------- ------------
+    Metric Name             Metric Unit Metric Value
+    ----------------------- ----------- ------------
+    smsp__inst_executed.sum        inst  573,094,654
+    ----------------------- ----------- ------------
+
+    Section: GPU Speed Of Light Throughput
+    ----------------------- ----------- -------------
+    Metric Name             Metric Unit  Metric Value
+    ----------------------- ----------- -------------
+    DRAM Frequency                  Ghz          5.00
+    SM Frequency                    Mhz        585.00
+    Elapsed Cycles                cycle    10,082,303
+    Memory Throughput                 %         44.90
+    DRAM Throughput                   %          9.99
+    Duration                         ms         17.23
+    L1/TEX Cache Throughput           %         89.80
+    L2 Cache Throughput               %         13.38
+    SM Active Cycles              cycle 10,075,011.62
+    Compute (SM) Throughput           %         35.50
+    ----------------------- ----------- -------------
+
+    OPT   This workload exhibits low compute throughput and memory bandwidth utilization relative to the peak           
+          performance of this device. Achieved compute throughput and/or memory bandwidth below 60.0% of peak           
+          typically indicate latency issues. Look at Scheduler Statistics and Warp State Statistics for potential       
+          reasons.                                                                                                      
+
+    Section: Launch Statistics
+    -------------------------------- --------------- ---------------
+    Metric Name                          Metric Unit    Metric Value
+    -------------------------------- --------------- ---------------
+    Block Size                                                   256
+    Function Cache Configuration                     CachePreferNone
+    Grid Size                                                 43,342
+    Registers Per Thread             register/thread              18
+    Shared Memory Configuration Size           Kbyte           32.77
+    Driver Shared Memory Per Block        byte/block               0
+    Dynamic Shared Memory Per Block       byte/block               0
+    Static Shared Memory Per Block        byte/block               0
+    # SMs                                         SM              40
+    Stack Size                                                 1,024
+    Threads                                   thread      11,095,552
+    # TPCs                                                        20
+    Enabled TPC IDs                                              all
+    Uses Green Context                                             0
+    Waves Per SM                                              270.89
+    -------------------------------- --------------- ---------------
+
+    Section: Occupancy
+    ------------------------------- ----------- ------------
+    Metric Name                     Metric Unit Metric Value
+    ------------------------------- ----------- ------------
+    Block Limit SM                        block           16
+    Block Limit Registers                 block           10
+    Block Limit Shared Mem                block           16
+    Block Limit Warps                     block            4
+    Theoretical Active Warps per SM        warp           32
+    Theoretical Occupancy                     %          100
+    Achieved Occupancy                        %        77.85
+    Achieved Active Warps Per SM           warp        24.91
+    ------------------------------- ----------- ------------
+
+    OPT   Est. Local Speedup: 22.15%                                                                                    
+          The difference between calculated theoretical (100.0%) and measured achieved occupancy (77.8%) can be the     
+          result of warp scheduling overheads or workload imbalances during the kernel execution. Load imbalances can   
+          occur between warps within a block as well as across blocks of the same kernel. See the CUDA Best Practices   
+          Guide (https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/index.html#occupancy) for more details on     
+          optimizing occupancy.                                                                                         
+
+    Section: GPU and Memory Workload Distribution
+    -------------------------- ----------- -------------
+    Metric Name                Metric Unit  Metric Value
+    -------------------------- ----------- -------------
+    Average DRAM Active Cycles       cycle     8,604,164
+    Total DRAM Elapsed Cycles        cycle   689,078,272
+    Average L1 Active Cycles         cycle 10,075,011.62
+    Total L1 Elapsed Cycles          cycle   403,569,768
+    Average L2 Active Cycles         cycle 13,689,198.25
+    Total L2 Elapsed Cycles          cycle   471,540,768
+    Average SM Active Cycles         cycle 10,075,011.62
+    Total SM Elapsed Cycles          cycle   403,569,768
+    Average SMSP Active Cycles       cycle 10,062,532.57
+    Total SMSP Elapsed Cycles        cycle 1,614,279,072
+    -------------------------- ----------- -------------
+
+    OPT   Est. Speedup: 6.113%                                                                                          
+          One or more L2 Slices have a much higher number of active cycles than the average number of active cycles.    
+          Maximum instance value is 6.58% above the average, while the minimum instance value is 1.05% below the        
+          average.                                                                                                      
+
+==PROF== Connected to process 223025 (/content/cuda-triangle-counting/bin/gpu_tc)
+GPU: Tesla T4, SMs=40, cc=7.5
+loaded n=1696415 m=11095298 max_out_deg=231
+v4 tasks=10332866 (chunk=128), host task build 238.84 ms
+v9 edge order built, host time 283.09 ms
+gpu_v1_edge_per_thread,data/as-Skitter.txt,1696415,11095298,28769868,10.866,21.744,32.611
+gpu_v2_warp_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,19.618,21.744,41.362
+gpu_v3_block_smem,data/as-Skitter.txt,1696415,11095298,28769868,26.042,11.828,37.870
+gpu_v4_task_warp,data/as-Skitter.txt,1696415,11095298,28769868,20.901,41.352,301.090
+gpu_v5_g2_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,10.226,21.744,31.970
+gpu_v5_g4_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,7.895,21.744,29.640
+gpu_v5_g8_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,10.897,21.744,32.642
+gpu_v5_g16_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,12.982,21.744,34.727
+gpu_v6_vertex_per_thread,data/as-Skitter.txt,1696415,11095298,28769868,17.302,11.828,29.129
+gpu_v7_edge_search_src,data/as-Skitter.txt,1696415,11095298,28769868,9.267,11.828,21.095
+==PROF== Profiling "tc_warp_vertex_hash": 0%....50%....100% - 9 passes
+gpu_v8_warp_vertex_hash,data/as-Skitter.txt,1696415,11095298,28769868,20.194,11.828,32.022
+gpu_v9_edge_sorted,data/as-Skitter.txt,1696415,11095298,28769868,14.555,31.775,329.421
+all kernels verified against CPU count: 28769868
+==PROF== Disconnected from process 223025
+[223025] gpu_tc@127.0.0.1
+  tc_warp_vertex_hash(const unsigned int *, const unsigned int *, unsigned int, unsigned long long *) (212052, 1, 1)x(256, 1, 1), Context 1, Stream 7, Device 0, CC 7.5
+    Section: Command line profiler metrics
+    ----------------------- ----------- ------------
+    Metric Name             Metric Unit Metric Value
+    ----------------------- ----------- ------------
+    smsp__inst_executed.sum        inst  806,320,876
+    ----------------------- ----------- ------------
+
+    Section: GPU Speed Of Light Throughput
+    ----------------------- ----------- -------------
+    Metric Name             Metric Unit  Metric Value
+    ----------------------- ----------- -------------
+    DRAM Frequency                  Ghz          5.00
+    SM Frequency                    Mhz        585.00
+    Elapsed Cycles                cycle    15,197,855
+    Memory Throughput                 %         41.91
+    DRAM Throughput                   %          5.37
+    Duration                         ms         25.98
+    L1/TEX Cache Throughput           %         50.24
+    L2 Cache Throughput               %          4.20
+    SM Active Cycles              cycle 15,193,194.57
+    Compute (SM) Throughput           %         41.91
+    ----------------------- ----------- -------------
+
+    OPT   This workload exhibits low compute throughput and memory bandwidth utilization relative to the peak           
+          performance of this device. Achieved compute throughput and/or memory bandwidth below 60.0% of peak           
+          typically indicate latency issues. Look at Scheduler Statistics and Warp State Statistics for potential       
+          reasons.                                                                                                      
+
+    Section: Launch Statistics
+    -------------------------------- --------------- ---------------
+    Metric Name                          Metric Unit    Metric Value
+    -------------------------------- --------------- ---------------
+    Block Size                                                   256
+    Function Cache Configuration                     CachePreferNone
+    Grid Size                                                212,052
+    Registers Per Thread             register/thread              26
+    Shared Memory Configuration Size           Kbyte           65.54
+    Driver Shared Memory Per Block        byte/block               0
+    Dynamic Shared Memory Per Block       byte/block               0
+    Static Shared Memory Per Block       Kbyte/block           16.38
+    # SMs                                         SM              40
+    Stack Size                                                 1,024
+    Threads                                   thread      54,285,312
+    # TPCs                                                        20
+    Enabled TPC IDs                                              all
+    Uses Green Context                                             0
+    Waves Per SM                                            1,325.33
+    -------------------------------- --------------- ---------------
+
+    Section: Occupancy
+    ------------------------------- ----------- ------------
+    Metric Name                     Metric Unit Metric Value
+    ------------------------------- ----------- ------------
+    Block Limit SM                        block           16
+    Block Limit Registers                 block            8
+    Block Limit Shared Mem                block            4
+    Block Limit Warps                     block            4
+    Theoretical Active Warps per SM        warp           32
+    Theoretical Occupancy                     %          100
+    Achieved Occupancy                        %        59.47
+    Achieved Active Warps Per SM           warp        19.03
+    ------------------------------- ----------- ------------
+
+    OPT   Est. Local Speedup: 40.53%                                                                                    
+          The difference between calculated theoretical (100.0%) and measured achieved occupancy (59.5%) can be the     
+          result of warp scheduling overheads or workload imbalances during the kernel execution. Load imbalances can   
+          occur between warps within a block as well as across blocks of the same kernel. See the CUDA Best Practices   
+          Guide (https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/index.html#occupancy) for more details on     
+          optimizing occupancy.                                                                                         
+
+    Section: GPU and Memory Workload Distribution
+    -------------------------- ----------- -------------
+    Metric Name                Metric Unit  Metric Value
+    -------------------------- ----------- -------------
+    Average DRAM Active Cycles       cycle  6,975,463.50
+    Total DRAM Elapsed Cycles        cycle 1,038,352,384
+    Average L1 Active Cycles         cycle 15,193,194.57
+    Total L1 Elapsed Cycles          cycle   607,958,768
+    Average L2 Active Cycles         cycle    15,860,141
+    Total L2 Elapsed Cycles          cycle   710,791,136
+    Average SM Active Cycles         cycle 15,193,194.57
+    Total SM Elapsed Cycles          cycle   607,958,768
+    Average SMSP Active Cycles       cycle 15,033,882.57
+    Total SMSP Elapsed Cycles        cycle 2,431,835,072
+    -------------------------- ----------- -------------
+
+    OPT   Est. Speedup: 17.06%                                                                                          
+          One or more L2 Slices have a much higher number of active cycles than the average number of active cycles.    
+          Maximum instance value is 23.89% above the average, while the minimum instance value is 3.10% below the       
+          average.                                                                                                      
+
+==PROF== Connected to process 223117 (/content/cuda-triangle-counting/bin/gpu_tc)
+GPU: Tesla T4, SMs=40, cc=7.5
+loaded n=1696415 m=11095298 max_out_deg=231
+v4 tasks=10332866 (chunk=128), host task build 245.08 ms
+v9 edge order built, host time 288.73 ms
+gpu_v1_edge_per_thread,data/as-Skitter.txt,1696415,11095298,28769868,9.353,21.289,30.642
+gpu_v2_warp_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,20.085,21.289,41.374
+gpu_v3_block_smem,data/as-Skitter.txt,1696415,11095298,28769868,24.807,11.407,36.214
+gpu_v4_task_warp,data/as-Skitter.txt,1696415,11095298,28769868,21.260,39.453,305.792
+gpu_v5_g2_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,8.470,21.289,29.759
+gpu_v5_g4_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,8.319,21.289,29.608
+gpu_v5_g8_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,10.064,21.289,31.353
+gpu_v5_g16_per_edge,data/as-Skitter.txt,1696415,11095298,28769868,14.029,21.289,35.318
+gpu_v6_vertex_per_thread,data/as-Skitter.txt,1696415,11095298,28769868,17.893,11.407,29.301
+gpu_v7_edge_search_src,data/as-Skitter.txt,1696415,11095298,28769868,9.693,11.407,21.100
+gpu_v8_warp_vertex_hash,data/as-Skitter.txt,1696415,11095298,28769868,13.402,11.407,24.810
+==PROF== Profiling "tc_edge_sorted": 0%....50%....100% - 9 passes
+gpu_v9_edge_sorted,data/as-Skitter.txt,1696415,11095298,28769868,15.426,30.981,335.135
+all kernels verified against CPU count: 28769868
+==PROF== Disconnected from process 223117
+[223117] gpu_tc@127.0.0.1
+  tc_edge_sorted(const unsigned int *, const unsigned int *, const unsigned int *, const unsigned int *, unsigned int, unsigned long long *) (43342, 1, 1)x(256, 1, 1), Context 1, Stream 7, Device 0, CC 7.5
+    Section: Command line profiler metrics
+    ----------------------- ----------- ------------
+    Metric Name             Metric Unit Metric Value
+    ----------------------- ----------- ------------
+    smsp__inst_executed.sum        inst  471,452,412
+    ----------------------- ----------- ------------
+
+    Section: GPU Speed Of Light Throughput
+    ----------------------- ----------- -------------
+    Metric Name             Metric Unit  Metric Value
+    ----------------------- ----------- -------------
+    DRAM Frequency                  Ghz          5.00
+    SM Frequency                    Mhz        585.00
+    Elapsed Cycles                cycle    10,389,026
+    Memory Throughput                 %         44.13
+    DRAM Throughput                   %         17.09
+    Duration                         ms         17.76
+    L1/TEX Cache Throughput           %         88.26
+    L2 Cache Throughput               %         17.93
+    SM Active Cycles              cycle 10,373,376.10
+    Compute (SM) Throughput           %         28.37
+    ----------------------- ----------- -------------
+
+    OPT   This workload exhibits low compute throughput and memory bandwidth utilization relative to the peak           
+          performance of this device. Achieved compute throughput and/or memory bandwidth below 60.0% of peak           
+          typically indicate latency issues. Look at Scheduler Statistics and Warp State Statistics for potential       
+          reasons.                                                                                                      
+
+    Section: Launch Statistics
+    -------------------------------- --------------- ---------------
+    Metric Name                          Metric Unit    Metric Value
+    -------------------------------- --------------- ---------------
+    Block Size                                                   256
+    Function Cache Configuration                     CachePreferNone
+    Grid Size                                                 43,342
+    Registers Per Thread             register/thread              20
+    Shared Memory Configuration Size           Kbyte           32.77
+    Driver Shared Memory Per Block        byte/block               0
+    Dynamic Shared Memory Per Block       byte/block               0
+    Static Shared Memory Per Block        byte/block               0
+    # SMs                                         SM              40
+    Stack Size                                                 1,024
+    Threads                                   thread      11,095,552
+    # TPCs                                                        20
+    Enabled TPC IDs                                              all
+    Uses Green Context                                             0
+    Waves Per SM                                              270.89
+    -------------------------------- --------------- ---------------
+
+    Section: Occupancy
+    ------------------------------- ----------- ------------
+    Metric Name                     Metric Unit Metric Value
+    ------------------------------- ----------- ------------
+    Block Limit SM                        block           16
+    Block Limit Registers                 block           10
+    Block Limit Shared Mem                block           16
+    Block Limit Warps                     block            4
+    Theoretical Active Warps per SM        warp           32
+    Theoretical Occupancy                     %          100
+    Achieved Occupancy                        %        79.86
+    Achieved Active Warps Per SM           warp        25.55
+    ------------------------------- ----------- ------------
+
+    OPT   Est. Local Speedup: 20.14%                                                                                    
+          The difference between calculated theoretical (100.0%) and measured achieved occupancy (79.9%) can be the     
+          result of warp scheduling overheads or workload imbalances during the kernel execution. Load imbalances can   
+          occur between warps within a block as well as across blocks of the same kernel. See the CUDA Best Practices   
+          Guide (https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/index.html#occupancy) for more details on     
+          optimizing occupancy.                                                                                         
+
+    Section: GPU and Memory Workload Distribution
+    -------------------------- ----------- -------------
+    Metric Name                Metric Unit  Metric Value
+    -------------------------- ----------- -------------
+    Average DRAM Active Cycles       cycle 15,159,879.50
+    Total DRAM Elapsed Cycles        cycle   709,685,248
+    Average L1 Active Cycles         cycle 10,373,376.10
+    Total L1 Elapsed Cycles          cycle   415,457,920
+    Average L2 Active Cycles         cycle 14,828,079.41
+    Total L2 Elapsed Cycles          cycle   485,886,560
+    Average SM Active Cycles         cycle 10,373,376.10
+    Total SM Elapsed Cycles          cycle   415,457,920
+    Average SMSP Active Cycles       cycle 10,381,884.97
+    Total SMSP Elapsed Cycles        cycle 1,661,831,680
+    -------------------------- ----------- -------------
+
+raft-dask-cu13 26.6.0 requires dask-cuda==26.6.*, but you have dask-cuda 26.10.0 which is incompatible.
+raft-dask-cu13 26.6.0 requires rapids-dask-dependency==26.6.*, but you have rapids-dask-dependency 26.10.0 which is incompatible.
+/usr/local/lib/python3.13/dist-packages/cupy/_environment.py:677: UserWarning: 
+--------------------------------------------------------------------------------
+
+  CuPy may not function correctly because multiple CuPy packages are installed
+  in your environment:
+
+    cupy-cuda12x, cupy-cuda13x
+
+  Follow these steps to resolve this issue:
+
+    1. For all packages listed above, run the following command to remove all
+       existing CuPy installations:
+
+         $ pip uninstall <package_name>
+
+      If you previously installed CuPy via conda, also run the following:
+
+         $ conda uninstall cupy
+
+    2. Install the appropriate CuPy package.
+       Refer to the Installation Guide for detailed instructions.
+
+         https://docs.cupy.dev/en/stable/install.html
+
+--------------------------------------------------------------------------------
+
+  warnings.warn(f'''
+cugraph unavailable: libcudf.so: cannot open shared object file: No such file or directory
